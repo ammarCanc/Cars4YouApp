@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car4You | Price Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f0f2f5; font-family: 'Segoe UI', Roboto, sans-serif; }
+        .navbar { background: #1a2a6c; border-bottom: 4px solid #b21f1f; }
+        .card { border: none; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; }
+        .card-header { background: #fff; border-bottom: 1px solid #eee; padding: 20px; }
+        .btn-predict { background: linear-gradient(to right, #b21f1f, #fdbb2d); color: white; border: none; 
+                       border-radius: 10px; padding: 15px; font-weight: bold; transition: 0.3s; }
+        .btn-predict:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(178, 31, 31, 0.4); color: white; }
+        .result-box { background: #e8f5e9; border: 2px dashed #2e7d32; border-radius: 15px; padding: 25px; margin-top: 25px; }
+        label { font-size: 0.9rem; font-weight: 700; color: #555; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-control, .form-select { border-radius: 8px; padding: 10px; border: 1px solid #ddd; }
+        .form-control:focus { border-color: #b21f1f; box-shadow: 0 0 0 0.2rem rgba(178, 31, 31, 0.1); }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark py-3 mb-5">
+    <div class="container text-center">
+        <span class="navbar-brand mb-0 h1 mx-auto">CAR4YOU SMART VALUATION SYSTEM</span>
+    </div>
+</nav>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4 class="text-dark fw-bold m-0">Predict Resale Value</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/predict" method="post">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label>Brand Name</label>
+                                <input type="text" name="brand" class="form-control" value="Audi" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Model Variant</label>
+                                <input type="text" name="model" class="form-control" value="A3" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Year of Manufacture</label>
+                                <input type="number" name="year" class="form-control" value="2018" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Fuel Type</label>
+                                <select name="fuelType" class="form-select">
+                                    <option value="Petrol" selected>Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Engine Size (L)</label>
+                                <input type="number" step="0.1" name="engineSize" class="form-control" value="1.4" required>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Total Mileage</label>
+                                <input type="number" name="mileage" class="form-control" value="34400" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Efficiency (MPG)</label>
+                                <input type="number" step="0.1" name="mpg" class="form-control" value="50.0" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Annual Tax (£)</label>
+                                <input type="number" name="tax" class="form-control" value="500" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Paint Quality (%)</label>
+                                <input type="number" name="paint" class="form-control" value="90" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Previous Owners</label>
+                                <input type="number" name="owners" class="form-control" value="1" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Has Damage?</label>
+                                <select name="hasDamage" class="form-select">
+                                    <option value="0" selected>No (0)</option>
+                                    <option value="1">Yes (1)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-predict w-100 mt-5">RUN VALUATION MODEL</button>
+                    </form>
+
+                    {% if result %}
+                    <div class="result-box text-center">
+                        <p class="text-muted mb-1">The Predicted Selling Price is</p>
+                        <h1 class="display-3 fw-bold text-success m-0">{{ result }}</h1>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
