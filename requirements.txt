@@ -2,6 +2,6 @@ Flask
 pandas
 numpy
 joblib
-scikit-learn
+scikit-learn==1.7.2
 category_encoders
 gunicorn
